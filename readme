@@ -1,31 +1,13 @@
-gptq_model.py
-已经跑通的GPTQ量化方法,RAG_instruction_105_Q.json  qwen模板
+evaluate_ceval.py 是数据集C-EVAL中选择了8个具有挑战性的数学、物理和化学科目,形成一个单独的基准, 即C-EVAL HARD,其中包括高等数学、离散数学、概率和统计、大学化学、大学物理、高 中数学、高中化学和高中物理。这些科目通常涉及复杂的LATEX方程,需要非微妙的推理 能力来解决。
+数据集mmlu类似,但是耗费时间长,估计8小时
 
-lora_compose.py
-合并lora和原model
+evaluate_chat_ceval.py适合chat模型，不用在tokenizer上配置开始结束pad等token，但是跑的速度极慢
 
-guanaco_generate.py
-qlora方法 使用适配器和原model加载的示例
+profile_test是单卡上计算最大的RM以及推理速度
 
-eval_qwen
-该文件夹下是千问官方在发布的数据集上评测大模型各种能力的脚本,推荐不使用针对chat模型，如该脚本
-/data0/zhangchongrui/project/eval_qwen/evaluate_chat_ceval.py
-而使用非chat模型，如该脚本
-/data0/zhangchongrui/project/eval_qwen/evaluate_ceval.py
-非chat测评速度快，缺点就是需要手动添加特殊字符，代码中已经给出示例
-
-profile_test.py
-该脚本可以测试model 运行时内存以及推理速度
-
-qwen1.5
-该文件夹下是可以跑通的qlora方法
-其中
-bnb   
-qwen1.5/finetune.py
-model_name_or_path为"/data0/zhangchongrui/model/Qwen1.5_72B_models/Qwen1.5-72B-Chat"
-
-GPTQ  
-finetune_v2.py
-model_name_or_path为"/data0/zhangchongrui/model/Qwen-72B-Chat-Int4"
-
-qlora需要添加已经量化过的model,bnb在加载过程中量化，所以加载原model，而GPTQ需要加载GPTQ量化过后的model
+Specify hyperparameters for generation. But if you use transformers>=4.32.0, there is no need to do this
+    model.generation_config = GenerationConfig.from_pretrained(
+    model_name_or_path,
+    pad_token_id=tokenizer.pad_token_id,
+    trust_remote_code=True
+    )
