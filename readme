@@ -1,0 +1,31 @@
+gptq_model.py
+已经跑通的GPTQ量化方法,RAG_instruction_105_Q.json  qwen模板
+
+lora_compose.py
+合并lora和原model
+
+guanaco_generate.py
+qlora方法 使用适配器和原model加载的示例
+
+eval_qwen
+该文件夹下是千问官方在发布的数据集上评测大模型各种能力的脚本,推荐不使用针对chat模型，如该脚本
+/data0/zhangchongrui/project/eval_qwen/evaluate_chat_ceval.py
+而使用非chat模型，如该脚本
+/data0/zhangchongrui/project/eval_qwen/evaluate_ceval.py
+非chat测评速度快，缺点就是需要手动添加特殊字符，代码中已经给出示例
+
+profile_test.py
+该脚本可以测试model 运行时内存以及推理速度
+
+qwen1.5
+该文件夹下是可以跑通的qlora方法
+其中
+bnb   
+qwen1.5/finetune.py
+model_name_or_path为"/data0/zhangchongrui/model/Qwen1.5_72B_models/Qwen1.5-72B-Chat"
+
+GPTQ  
+finetune_v2.py
+model_name_or_path为"/data0/zhangchongrui/model/Qwen-72B-Chat-Int4"
+
+qlora需要添加已经量化过的model,bnb在加载过程中量化，所以加载原model，而GPTQ需要加载GPTQ量化过后的model
